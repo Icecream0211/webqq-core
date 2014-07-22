@@ -58,7 +58,7 @@ import iqq.im.module.DiscuzModule;
 import iqq.im.module.EmailModule;
 import iqq.im.module.GroupModule;
 import iqq.im.module.LoginModule;
-import iqq.im.module.ProcModule;
+import iqq.im.module.LoginProcessModule;
 import iqq.im.module.UserModule;
 import iqq.im.service.ApacheHttpService;
 import iqq.im.service.HttpService;
@@ -105,7 +105,7 @@ public class WebQQClient implements QQClient, QQContext {
 		this.services = new HashMap<QQService.Type, QQService>();
 
 		this.modules.put(QQModule.Type.LOGIN, new LoginModule());
-		this.modules.put(QQModule.Type.PROC, new ProcModule());
+		this.modules.put(QQModule.Type.PROC, new LoginProcessModule());
 		this.modules.put(QQModule.Type.USER, new UserModule());
 		this.modules.put(QQModule.Type.BUDDY, new BuddyModule());
 		this.modules.put(QQModule.Type.CATEGORY, new CategoryModule());
@@ -273,8 +273,8 @@ public class WebQQClient implements QQClient, QQContext {
 
 		getAccount().setStatus(status);
 		getSession().setState(QQSession.State.LOGINING);
-		ProcModule procModule = (ProcModule) getModule(QQModule.Type.PROC);
-		return procModule.login(listener);
+		LoginProcessModule LoginProcessModule = (LoginProcessModule) getModule(QQModule.Type.PROC);
+		return LoginProcessModule.login(listener);
 	}
 
     /**
@@ -292,8 +292,8 @@ public class WebQQClient implements QQClient, QQContext {
 		
 		getAccount().setStatus(status);
 		getSession().setState(QQSession.State.LOGINING);
-		ProcModule procModule = (ProcModule) getModule(QQModule.Type.PROC);
-		return procModule.relogin(status, listener);
+		LoginProcessModule LoginProcessModule = (LoginProcessModule) getModule(QQModule.Type.PROC);
+		return LoginProcessModule.relogin(status, listener);
 	}
 
 	public void getCaptcha(QQActionListener listener) {
@@ -340,8 +340,8 @@ public class WebQQClient implements QQClient, QQContext {
 			throw new IllegalArgumentException("client is aready offline !!!");
 		}
 		
-		ProcModule procModule = (ProcModule) getModule(QQModule.Type.PROC);
-		procModule.doPollMsg();
+		LoginProcessModule LoginProcessModule = (LoginProcessModule) getModule(QQModule.Type.PROC);
+		LoginProcessModule.doPollMsg();
 
         // 轮询邮件
         // EmailModule emailModule = (EmailModule) getModule(QQModule.Type.EMAIL);
@@ -421,8 +421,8 @@ public class WebQQClient implements QQClient, QQContext {
 			throw new IllegalArgumentException("client is aready offline !!!");
 		}
 		
-		ProcModule procModule = (ProcModule) getModule(QQModule.Type.PROC);
-		return procModule.doLogout(new QQActionListener() {
+		LoginProcessModule LoginProcessModule = (LoginProcessModule) getModule(QQModule.Type.PROC);
+		return LoginProcessModule.doLogout(new QQActionListener() {
 			public void onActionEvent(QQActionEvent event) {
 				// 无论退出登录失败还是成功，都需要释放资源
 				if (event.getType() == QQActionEvent.Type.EVT_OK
@@ -731,7 +731,7 @@ public class WebQQClient implements QQClient, QQContext {
 			(QQNotifyEventArgs.ImageVerify) verifyEvent.getTarget();
 		
 		if(verify.type==VerifyType.LOGIN){
-			ProcModule mod = getModule(QQModule.Type.PROC);
+			LoginProcessModule mod = getModule(QQModule.Type.PROC);
 			mod.loginWithVerify(code, (ProcActionFuture)verify.future);
 		}
 	}

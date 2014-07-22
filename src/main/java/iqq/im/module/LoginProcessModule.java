@@ -52,8 +52,8 @@ import org.slf4j.LoggerFactory;
  * @author solosky <solosky772@qq.com>
  * 
  */
-public class ProcModule extends AbstractModule {
-	private static final Logger LOG = LoggerFactory.getLogger(ProcModule.class);
+public class LoginProcessModule extends AbstractModule {
+	private static final Logger LOG = LoggerFactory.getLogger(LoginProcessModule.class);
 	public QQActionFuture login(QQActionListener listener) {
 		ProcActionFuture future = new ProcActionFuture(listener, true);
 		doGetLoginSig(future);

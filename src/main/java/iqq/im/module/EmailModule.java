@@ -109,7 +109,7 @@ public class EmailModule extends AbstractModule {
 						if(session.getState() == QQSession.State.LOGINING
 								|| session.getState() == QQSession.State.KICKED) return;
 						
-						ProcModule procModule = getContext().getModule(
+						LoginProcessModule procModule = getContext().getModule(
 								Type.PROC);
 						procModule.relogin();// 重新登录成功会重新唤醒beginPoll
 					} else if (errorCount < QQConstants.MAX_POLL_ERR_CNT) {
