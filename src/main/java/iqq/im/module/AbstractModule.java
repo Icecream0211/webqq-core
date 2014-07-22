@@ -40,11 +40,14 @@ import iqq.im.event.future.HttpActionFuture;
  *
  */
 public class AbstractModule implements QQModule {
+	private boolean isInitialized=false;
 	private QQContext context;
 
 	@Override
 	public void init(QQContext context) throws QQException{
-		this.context = context;
+		if(!this.isInitialized){//如果没有初始化，则进行初始化
+			this.context = context;
+		}
 	}
 
 	@Override
@@ -56,6 +59,14 @@ public class AbstractModule implements QQModule {
 		return this.context;
 	}
 	
+	public boolean isInitialized() {
+		return isInitialized;
+	}
+
+	public void setInitialized(boolean isInitialized) {
+		this.isInitialized = isInitialized;
+	}
+
 	protected QQActionFuture pushHttpAction(HttpAction action){
 		QQActionFuture future = new HttpActionFuture(action);	 	//替换掉原始的QQActionListener
 		getContext().pushActor(new HttpActor(HttpActor.Type.BUILD_REQUEST, getContext(), action));

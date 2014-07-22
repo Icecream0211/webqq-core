@@ -37,18 +37,27 @@ import iqq.im.core.QQService;
  *
  */
 public abstract class AbstractService implements QQService{
+	private boolean isInitialized=false;
 	private QQContext context;
 
 	@Override
 	public void init(QQContext context) throws QQException {
-		this.context = context;
+		if(!this.isInitialized){//如果没有初始化，则进行初始化
+			this.context = context;
+		}
 	}
 
 	@Override
 	public void destroy() throws QQException{
 	}
-	
-	
+	public boolean isInitialized() {
+		return isInitialized;
+	}
+
+	public void setInitialized(boolean isInitialized) {
+		this.isInitialized = isInitialized;
+	}
+
 	protected QQContext getContext(){
 		return this.context;
 	}

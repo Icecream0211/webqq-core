@@ -44,4 +44,5 @@ public interface QQContext {
 	public QQAccount getAccount();
 	public QQSession getSession();
 	public QQStore   getStore();
+	public void registModule(QQModule.Type type,QQModule module);
 }

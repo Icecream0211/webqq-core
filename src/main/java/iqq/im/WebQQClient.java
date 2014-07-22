@@ -101,9 +101,27 @@ public class WebQQClient implements QQClient, QQContext {
      */
 	public WebQQClient(String username, String password,
 			QQNotifyListener notifyListener, QQActorDispatcher actorDispatcher) {
+		registDefaultModule();//注册默认模块
+		registDefaultService();//注册默认服务
+		this.account = new QQAccount();
+		this.account.setUsername(username);
+		this.account.setPassword(password);
+		this.session = new QQSession();
+		this.store = new QQStore();
+		this.notifyListener = notifyListener;
+		this.actorDispatcher = actorDispatcher;
+		this.init();
+	}
+	private void registDefaultService(){
+		this.services.put(QQService.Type.HTTP, new ApacheHttpService());
+	}
+	
+	/**
+	 * 注册默认模块
+	 */
+	private void registDefaultModule(){
 		this.modules = new HashMap<QQModule.Type, QQModule>();
 		this.services = new HashMap<QQService.Type, QQService>();
-
 		this.modules.put(QQModule.Type.LOGIN, new LoginModule());
 		this.modules.put(QQModule.Type.PROC, new LoginProcessModule());
 		this.modules.put(QQModule.Type.USER, new UserModule());
@@ -113,18 +131,6 @@ public class WebQQClient implements QQClient, QQContext {
 		this.modules.put(QQModule.Type.CHAT, new ChatModule());
 		this.modules.put(QQModule.Type.DISCUZ, new DiscuzModule());
 		this.modules.put(QQModule.Type.EMAIL, new EmailModule());
-
-		this.services.put(QQService.Type.HTTP, new ApacheHttpService());
-
-		this.account = new QQAccount();
-		this.account.setUsername(username);
-		this.account.setPassword(password);
-		this.session = new QQSession();
-		this.store = new QQStore();
-		this.notifyListener = notifyListener;
-		this.actorDispatcher = actorDispatcher;
-		
-		this.init();
 	}
 
     /**
@@ -842,5 +848,11 @@ public class WebQQClient implements QQClient, QQContext {
 	@Override
 	public boolean isLogining() {
 		return getSession().getState() == QQSession.State.LOGINING;
+	}
+
+	@Override
+	public void registModule(QQModule.Type type,QQModule module){
+		this.modules.put(type, module);
+		this.init();
 	}
 }
