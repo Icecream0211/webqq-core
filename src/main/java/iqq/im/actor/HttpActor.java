@@ -59,7 +59,7 @@ public class HttpActor implements QQActor {
 			case BUILD_REQUEST: {
 				HttpService service = (HttpService) context.getSerivce(QQService.Type.HTTP);
 				QQHttpRequest request = action.buildRequest();
-				Future<QQHttpResponse> future = service.executeHttpRequest(request, new HttpAdaptor(context, action));
+				Future<QQHttpResponse> future = service.executeHttpRequest(request, new HttpCallBackListener(context, action));
 				action.setResponseFuture(future);
 				}
 				break;
@@ -138,11 +138,11 @@ public class HttpActor implements QQActor {
 	}
 
 
-	public static class HttpAdaptor implements QQHttpListener{
+	public static class HttpCallBackListener implements QQHttpListener{
 		private QQContext context;
 		private HttpAction action;
 		
-		public HttpAdaptor(QQContext context, HttpAction action) {
+		public HttpCallBackListener(QQContext context, HttpAction action) {
 			this.context = context;
 			this.action = action;
 		}
