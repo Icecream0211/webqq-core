@@ -1,0 +1,21 @@
+﻿//需要验证信息
+{"retcode":0,"result":[{"poll_type":"system_message","value":{"seq":62860,"type":"verify_required","uiuin":"","from_uin":3123613797,
+"account":243949660,"msg":"\u6211\u662F\u738B\u5175","allow":1,"stat":20}}]}
+
+
+//不需要验证时，别人添加我时收到的消息
+{"retcode":0,"result":[{"poll_type":"system_message","value":{"seq":10062,"type":"added_buddy_sig","uiuin":"","from_uin":3817020869,
+"account":510030162,"sig":")q\u00F7Q\u001E\u0015\u00C0\u00F4\u0083\u0019F\u0004P\u00C2\u00F7\u0095\u0082\u00F7\u007F*\u00839-\u00F0","stat":20}}]}
+
+//发送消息
+{"retcode":0,"result":[{"poll_type":"message","value":{"msg_id":22638,"from_uin":3817020869,"to_uin":2780810886,"msg_id2":482230,"msg_type":9,"reply_ip":176756449,"time":1406103903,"content":[["font",{"size":9,"color":"000000","style":[0,0,0],"name":"\u5FAE\u8F6F\u96C5\u9ED1"}],"aaaaaa "]}}]}
+
+//别人在打字时状态
+{"retcode":0,"result":[{"poll_type":"input_notify","value":{"msg_id":43814,"from_uin":3817020869,"to_uin":2780810886,"msg_id2":3151074464,"msg_type":121,"reply_ip":4294967295}}]}
+
+
+//隐身通知
+{"retcode":0,"result":[{"poll_type":"buddies_status_change","value":{"uin":80499140,"status":"offline","client_type":1}}]}
+
+//组消息
+{"retcode":0,"result":[{"poll_type":"group_message","value":{"msg_id":13688,"from_uin":2253669624,"to_uin":2780810886,"msg_id2":756353,"msg_type":43,"reply_ip":180028754,"group_code":305783417,"send_uin":80499140,"seq":1032,"time":1406104295,"info_seq":155643942,"content":[["font",{"size":13,"color":"ff0080","style":[0,0,0],"name":"\u5FAE\u8F6F\u96C5\u9ED1"}],"\u57AB\u5E95\u7684 "]}}]}
