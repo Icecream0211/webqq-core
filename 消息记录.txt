@@ -15,6 +15,9 @@
 
 
 //隐身通知
+//隐身通知
+//隐身通知
+//隐身通知
 {"retcode":0,"result":[{"poll_type":"buddies_status_change","value":{"uin":80499140,"status":"offline","client_type":1}}]}
 
 //组消息
