@@ -106,6 +106,7 @@ public class PollMsgAction extends AbstractHttpAction {
 	@Override
 	protected void onHttpStatusOK(QQHttpResponse response) throws QQException,
 			JSONException {
+		System.out.println("onHTTPStatusOK-->" + response.getResponseString());
 		QQStore store = getContext().getStore();
 		List<QQNotifyEvent> notifyEvents = new ArrayList<QQNotifyEvent>();
 		JSONObject json = new JSONObject(response.getResponseString());
@@ -153,7 +154,9 @@ public class PollMsgAction extends AbstractHttpAction {
 										.getString("reason")));
 					} else if (pollType.equals("buddies_status_change")) {
 						notifyEvents.add(processBuddyStatusChange(pollData));
-					} else {
+					}else if(pollType.equals("system_message")){
+						notifyEvents.add(processSystemMsgChange(pollData));
+					}else {
 						// TODO ...
 						LOG.warn("unknown pollType: " + pollType);
 					}
@@ -191,6 +194,11 @@ public class PollMsgAction extends AbstractHttpAction {
 			notifyEvents.add(new QQNotifyEvent(QQNotifyEvent.Type.UNKNOWN_ERROR, json));
 		}
 		notifyActionEvent(QQActionEvent.Type.EVT_OK, notifyEvents);
+	}
+	
+	private QQNotifyEvent processSystemMsgChange(JSONObject pollData){
+		return new QQNotifyEvent(QQNotifyEvent.Type.SYSTEM_NOTIFY, null);
+		
 	}
 
 	public QQNotifyEvent processBuddyStatusChange(JSONObject pollData)

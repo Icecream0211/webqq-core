@@ -198,7 +198,6 @@ public class WebQQClientTest {
 				System.out.print(" Text:" + ((TextItem)item).getContent());
 			}
 		}
-		System.out.println();
 		
 		// 组装QQ消息发送回去
 		QQMsg sendMsg = new QQMsg();

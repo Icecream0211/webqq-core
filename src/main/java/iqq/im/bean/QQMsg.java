@@ -58,7 +58,8 @@ public class QQMsg implements Serializable{
 		BUDDY_MSG, 		//好友消息
 		GROUP_MSG,		// 群消息
 		DISCUZ_MSG,		//讨论组消息
-		SESSION_MSG	//临时会话消息
+		SESSION_MSG,	//临时会话消息
+		SYSTEM_MSG       //系统消息
 	}
 
 	private long id; // 消息ID
@@ -70,6 +71,8 @@ public class QQMsg implements Serializable{
 	private QQDiscuz discuz;	//讨论组
 	private Date date; // 发送时间
 	private List<ContentItem> contentList; // 消息列表
+	
+	
 
 	public QQMsg() {
 		contentList = new ArrayList<ContentItem>();

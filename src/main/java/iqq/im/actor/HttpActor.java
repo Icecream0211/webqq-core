@@ -56,12 +56,12 @@ public class HttpActor implements QQActor {
 	public void execute() {
 		try {
 			switch (type) {
-			case BUILD_REQUEST: {
+			case BUILD_REQUEST: 
 				HttpService service = (HttpService) context.getSerivce(QQService.Type.HTTP);
-				QQHttpRequest request = action.buildRequest();
+				QQHttpRequest request = action.buildRequest();//根据封装原理以及ISR原理，每个Action需要做出自己的URL封装
+				//hTTPCallBackListener是在Http请求异步返回时的监听器
 				Future<QQHttpResponse> future = service.executeHttpRequest(request, new HttpCallBackListener(context, action));
-				action.setResponseFuture(future);
-				}
+				action.setResponseFuture(future);//responsefuture在此处设置进入action，ActionFuture是看得见的，相当于事务管理，transaction层
 				break;
 
 			case CANCEL_REQUEST:
@@ -69,7 +69,7 @@ public class HttpActor implements QQActor {
 				break;
 				
 			case ON_HTTP_ERROR:
-				action.onHttpError(throwable);
+				action.onHttpError(throwable);//Action需要感知onHttpError这样的事件，所以继承了QQHttpListener，下同
 				break;
 				
 			case ON_HTTP_FINISH:
@@ -137,7 +137,11 @@ public class HttpActor implements QQActor {
 		this.total = total;
 	}
 
-
+	/**
+	 * 继承了QQHttpListener,进行http异步返回监听，但QQHttpResponse是封装的
+	 * @author BingWang
+	 *
+	 */
 	public static class HttpCallBackListener implements QQHttpListener{
 		private QQContext context;
 		private HttpAction action;

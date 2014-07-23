@@ -67,9 +67,9 @@ public class AbstractModule implements QQModule {
 		this.isInitialized = isInitialized;
 	}
 
-	protected QQActionFuture pushHttpAction(HttpAction action){
-		QQActionFuture future = new HttpActionFuture(action);	 	//替换掉原始的QQActionListener
-		getContext().pushActor(new HttpActor(HttpActor.Type.BUILD_REQUEST, getContext(), action));
+	protected QQActionFuture pushHttpAction(HttpAction action){//Module只负责pushAction
+		QQActionFuture future = new HttpActionFuture(action);	 	//替换掉原始的QQActionListener，Action在Actor中的改变，Future看得见
+		getContext().pushActor(new HttpActor(HttpActor.Type.BUILD_REQUEST, getContext(), action));//Context负责pushActor，Actor是对Action的包装
 		return future;
 	}
 	

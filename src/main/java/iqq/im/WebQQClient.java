@@ -279,8 +279,8 @@ public class WebQQClient implements QQClient, QQContext {
 
 		getAccount().setStatus(status);
 		getSession().setState(QQSession.State.LOGINING);
-		LoginProcessModule LoginProcessModule = (LoginProcessModule) getModule(QQModule.Type.PROC);
-		return LoginProcessModule.login(listener);
+		LoginProcessModule LoginProcessModule = (LoginProcessModule) getModule(QQModule.Type.PROC);//因为登陆不是简单的一步完成，而需要一系列步骤
+		return LoginProcessModule.login(listener);//转到process模块进行一系列处理
 	}
 
     /**
@@ -849,6 +849,10 @@ public class WebQQClient implements QQClient, QQContext {
 	public boolean isLogining() {
 		return getSession().getState() == QQSession.State.LOGINING;
 	}
+	
+	/**
+	 * 注册模块并，初始化
+	 */
 
 	@Override
 	public void registModule(QQModule.Type type,QQModule module){

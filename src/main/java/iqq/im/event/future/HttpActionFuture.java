@@ -44,10 +44,10 @@ import iqq.im.action.HttpAction;
 public class HttpActionFuture extends AbstractActionFuture{
 	private HttpAction httpAction;
 	public HttpActionFuture(HttpAction action) {
-		super(action.getActionListener());
+		super(action.getActionListener());//暂时hold住之前action的listener
 		this.httpAction = action;
-		this.httpAction.setActionListener(this);
-		this.httpAction.setActionFuture(this);
+		this.httpAction.setActionListener(this);//使用Future本身的listener替代原始listener
+		this.httpAction.setActionFuture(this);//将本对象作为actionFuture设置进入action
 	}
 	
 	/* (non-Javadoc)

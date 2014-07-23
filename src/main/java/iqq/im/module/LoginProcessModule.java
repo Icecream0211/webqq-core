@@ -55,6 +55,9 @@ import org.slf4j.LoggerFactory;
 public class LoginProcessModule extends AbstractModule {
 	private static final Logger LOG = LoggerFactory.getLogger(LoginProcessModule.class);
 	public QQActionFuture login(QQActionListener listener) {
+		//hold 监听器listener,以及是否可以cancell。Listener来自客户端自定义的ActionListener
+		//Future可以用于多部走流程协调，作为预备技术进行预言
+		//等待一些事件发生，然后获取通知
 		ProcActionFuture future = new ProcActionFuture(listener, true);
 		doGetLoginSig(future);
 		return future;
@@ -67,6 +70,7 @@ public class LoginProcessModule extends AbstractModule {
 	
 	
 	private void doGetLoginSig(final ProcActionFuture future){
+		//综合流程需要详细模块进行详细处理
 		LoginModule login = (LoginModule) getContext().getModule(QQModule.Type.LOGIN);
 		login.getLoginSig(new QQActionListener() {
 			@Override

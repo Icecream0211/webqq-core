@@ -27,8 +27,6 @@ package iqq.im;
 
 import iqq.im.event.QQActionEvent;
 
-
-
 /**
  *
  *

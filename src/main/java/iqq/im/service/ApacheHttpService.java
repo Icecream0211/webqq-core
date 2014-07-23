@@ -179,8 +179,8 @@ public class ApacheHttpService extends AbstractService implements HttpService{
 				for(String key: headerMap.keySet()){
 					httppost.addHeader(key, headerMap.get(key));
 				}
-				QQHttpPostRequestProducer producer = new QQHttpPostRequestProducer(httphost, httppost, listener);
-				QQHttpResponseConsumer  consumer = new QQHttpResponseConsumer(request,listener, cookieJar);
+				QQHttpPostRequestProducer producer = new QQHttpPostRequestProducer(httphost, httppost, listener);//提供数据进行发送
+				QQHttpResponseConsumer  consumer = new QQHttpResponseConsumer(request,listener, cookieJar);//消费http请求返回数据
 				QQHttpResponseCallback callback = new QQHttpResponseCallback(listener);
 				Future<QQHttpResponse> future = asyncHttpClient.execute( producer, consumer, callback);
 				return new ProxyFuture(future, consumer, producer);

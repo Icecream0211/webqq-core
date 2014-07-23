@@ -125,7 +125,7 @@ public abstract class AbstractHttpAction implements HttpAction{
 
 	@Override
 	public void cancelRequest() {
-		responseFuture.cancel(true);
+		responseFuture.cancel(true);//是通过responseFuture进行cancel的
 		notifyActionEvent(QQActionEvent.Type.EVT_CANCELED, null);
 	}
 
